@@ -527,7 +527,47 @@
         font-family: var(--mono);
         transition: opacity 0.3s;
       }
-      .card-media video,
+      /* thumbnail — visible by default, fades out on hover */
+      .card-media .card-thumb {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 1;
+        transition: none; /* instant return on mouse-leave */
+      }
+      .project-card:hover .card-thumb {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+
+      /* video — hidden by default, fades in cleanly, blurs out on leave */
+      .card-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        filter: blur(0px);
+        transition:
+          opacity 0.4s ease,
+          filter 0.4s ease;
+      }
+      .project-card:hover .card-media video {
+        opacity: 1;
+        filter: blur(0px);
+        transition: opacity 0.35s ease;
+      }
+      .card-media video.leaving {
+        opacity: 0 !important;
+        filter: blur(10px) !important;
+        transition:
+          opacity 0.4s ease,
+          filter 0.4s ease !important;
+      }
+
       .card-media img.pgif {
         position: absolute;
         inset: 0;
@@ -537,110 +577,6 @@
         opacity: 0;
         transition: opacity 0.35s ease;
       }
-
-      .card-media .card-thumb {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 1;
-        transition: opacity 0.3s ease 0.6s; /* delay so glitch plays first */
-      }
-      .project-card:hover .card-thumb {
-        opacity: 0;
-      }
-
-      /* chromatic aberration layers */
-      .glitch-r,
-      .glitch-c {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 0.1s;
-        pointer-events: none;
-      }
-      .glitch-r {
-        mix-blend-mode: screen;
-        background-color: transparent;
-        filter: url(#glitch-r);
-        filter: saturate(2) hue-rotate(-30deg);
-      }
-      .glitch-c {
-        mix-blend-mode: screen;
-        filter: url(#glitch-c);
-        filter: saturate(2) hue-rotate(150deg);
-      }
-      .project-card:hover .glitch-r,
-      .project-card:hover .glitch-c {
-        opacity: 1;
-        animation: glitch-shift 0.6s steps(1) forwards;
-      }
-
-      @keyframes glitch-shift {
-        0% {
-          transform: translateX(0);
-          clip-path: inset(0 0 90% 0);
-        }
-        10% {
-          transform: translateX(-6px);
-          clip-path: inset(20% 0 50% 0);
-        }
-        20% {
-          transform: translateX(6px);
-          clip-path: inset(60% 0 10% 0);
-        }
-        30% {
-          transform: translateX(-4px);
-          clip-path: inset(10% 0 70% 0);
-        }
-        40% {
-          transform: translateX(4px);
-          clip-path: inset(40% 0 30% 0);
-        }
-        50% {
-          transform: translateX(-6px);
-          clip-path: inset(80% 0 5% 0);
-        }
-        60% {
-          transform: translateX(3px);
-          clip-path: inset(30% 0 55% 0);
-        }
-        70% {
-          transform: translateX(-3px);
-          clip-path: inset(5% 0 80% 0);
-        }
-        80% {
-          transform: translateX(5px);
-          clip-path: inset(55% 0 25% 0);
-        }
-        90% {
-          transform: translateX(-5px);
-          clip-path: inset(15% 0 65% 0);
-        }
-        100% {
-          transform: translateX(0);
-          opacity: 0;
-        }
-      }
-
-      /* video fades in after glitch */
-      .card-media video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.3s ease 0.5s; /* 0.5s delay = after glitch */
-      }
-      .project-card:hover .card-media video {
-        opacity: 1;
-      }
-
-      .project-card:hover .card-media video,
       .project-card:hover .card-media img.pgif {
         opacity: 1;
       }
@@ -1037,7 +973,8 @@
             ],
             live: "https://adam5192.github.io/Note-Taking-App/",
             repo: "https://github.com/adam5192/Note-Taking-App",
-            video: "",
+            video: "videos/Notely.mp4",
+            img: "images/notely.png",
             gif: "",
           },
           {
@@ -1077,7 +1014,8 @@
             ],
             live: "",
             repo: "https://github.com/adam5192/eventhub",
-            video: "",
+            video: "videos/Event.mp4",
+            img: "images/event.png",
             gif: "",
             wip: true,
           },
@@ -1100,11 +1038,7 @@
         el.className = `project-card fade-up${p.img ? "" : " no-thumb"}`;
 
         const thumb = p.img
-          ? `
-        <img class="card-thumb" src="${p.img}" alt="${p.title}" loading="lazy">
-        <div class="glitch-r" style="background-image:url('${p.img}')"></div>
-        <div class="glitch-c" style="background-image:url('${p.img}')"></div>
-      `
+          ? `<img class="card-thumb" src="${p.img}" alt="${p.title}" loading="lazy">`
           : "";
 
         const vid = p.video
@@ -1132,12 +1066,19 @@
     </div>`;
         if (p.video) {
           const v = el.querySelector("video");
-          el.addEventListener("mouseenter", () =>
-            setTimeout(() => v.play(), 500),
-          );
+
+          el.addEventListener("mouseenter", () => {
+            v.classList.remove("leaving");
+            v.play();
+          });
+
           el.addEventListener("mouseleave", () => {
-            v.pause();
-            v.currentTime = 0;
+            v.classList.add("leaving");
+            setTimeout(() => {
+              v.pause();
+              v.currentTime = 0;
+              v.classList.remove("leaving");
+            }, 400);
           });
         }
         return el;
