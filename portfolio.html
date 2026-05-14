@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="images/cat1.png">
     <style>
       :root {
         --cyan: #00e5ff;
@@ -302,7 +303,8 @@
       @media (max-width: 768px) {
         .hero {
           grid-template-columns: 1fr;
-          gap: 3rem;
+          grid-template-rows: auto auto auto;
+          gap: 2rem;
           padding-bottom: 3rem;
         }
         .hero-photo-frame {
@@ -312,6 +314,27 @@
         .hero-photo-wrap {
           order: -1;
         }
+        .cat-stickers {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          gap: 1rem;
+          height: 140px;
+          margin-top: 0;
+        }
+        .cat-sticker {
+          position: relative !important;
+          bottom: auto !important;
+          left: auto !important;
+          right: auto !important;
+          top: auto !important;
+          width: 110px !important;
+          height: 110px !important;
+        }
+        .cat-sticker:nth-child(1) { transform: rotate(-6deg) !important; }
+        .cat-sticker:nth-child(2) { transform: rotate(4deg) !important; }
+        .cat-sticker:nth-child(3) { transform: rotate(-3deg) !important; }
       }
       .hero-tag {
         display: inline-flex;
