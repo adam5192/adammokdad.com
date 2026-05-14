@@ -545,10 +545,99 @@
         height: 100%;
         object-fit: cover;
         opacity: 1;
-        transition: opacity 0.35s ease;
+        transition: opacity 0.3s ease 0.6s; /* delay so glitch plays first */
       }
-      .project-card:hover .card-media .card-thumb {
+      .project-card:hover .card-thumb {
         opacity: 0;
+      }
+
+      /* chromatic aberration layers */
+      .glitch-r,
+      .glitch-c {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.1s;
+        pointer-events: none;
+      }
+      .glitch-r {
+        mix-blend-mode: screen;
+        background-color: transparent;
+        filter: url(#glitch-r);
+        filter: saturate(2) hue-rotate(-30deg);
+      }
+      .glitch-c {
+        mix-blend-mode: screen;
+        filter: url(#glitch-c);
+        filter: saturate(2) hue-rotate(150deg);
+      }
+      .project-card:hover .glitch-r,
+      .project-card:hover .glitch-c {
+        opacity: 1;
+        animation: glitch-shift 0.6s steps(1) forwards;
+      }
+
+      @keyframes glitch-shift {
+        0% {
+          transform: translateX(0);
+          clip-path: inset(0 0 90% 0);
+        }
+        10% {
+          transform: translateX(-6px);
+          clip-path: inset(20% 0 50% 0);
+        }
+        20% {
+          transform: translateX(6px);
+          clip-path: inset(60% 0 10% 0);
+        }
+        30% {
+          transform: translateX(-4px);
+          clip-path: inset(10% 0 70% 0);
+        }
+        40% {
+          transform: translateX(4px);
+          clip-path: inset(40% 0 30% 0);
+        }
+        50% {
+          transform: translateX(-6px);
+          clip-path: inset(80% 0 5% 0);
+        }
+        60% {
+          transform: translateX(3px);
+          clip-path: inset(30% 0 55% 0);
+        }
+        70% {
+          transform: translateX(-3px);
+          clip-path: inset(5% 0 80% 0);
+        }
+        80% {
+          transform: translateX(5px);
+          clip-path: inset(55% 0 25% 0);
+        }
+        90% {
+          transform: translateX(-5px);
+          clip-path: inset(15% 0 65% 0);
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 0;
+        }
+      }
+
+      /* video fades in after glitch */
+      .card-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.3s ease 0.5s; /* 0.5s delay = after glitch */
+      }
+      .project-card:hover .card-media video {
+        opacity: 1;
       }
 
       .project-card:hover .card-media video,
@@ -1010,11 +1099,19 @@
         const el = document.createElement("div");
         el.className = `project-card fade-up${p.img ? "" : " no-thumb"}`;
 
-        const media = `
-          ${p.img ? `<img class="card-thumb" src="${p.img}" alt="${p.title}" loading="lazy">` : ""}
-          ${p.video ? `<video src="${p.video}" muted loop playsinline preload="none"></video>` : ""}
-          ${p.gif ? `<img class="pgif" src="${p.gif}" alt="${p.title}" loading="lazy">` : ""}
-          `;
+        const thumb = p.img
+          ? `
+        <img class="card-thumb" src="${p.img}" alt="${p.title}" loading="lazy">
+        <div class="glitch-r" style="background-image:url('${p.img}')"></div>
+        <div class="glitch-c" style="background-image:url('${p.img}')"></div>
+      `
+          : "";
+
+        const vid = p.video
+          ? `<video src="${p.video}" muted loop playsinline preload="none"></video>`
+          : "";
+
+        const media = thumb + vid;
         const liveBtn = p.live
           ? `<a href="${p.live}" target="_blank" class="clbtn hi">${EXT_SVG} Live</a>`
           : "";
@@ -1035,7 +1132,9 @@
     </div>`;
         if (p.video) {
           const v = el.querySelector("video");
-          el.addEventListener("mouseenter", () => v.play());
+          el.addEventListener("mouseenter", () =>
+            setTimeout(() => v.play(), 500),
+          );
           el.addEventListener("mouseleave", () => {
             v.pause();
             v.currentTime = 0;
