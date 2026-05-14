@@ -198,12 +198,120 @@
       /* HERO */
       .hero {
         min-height: 100vh;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
         padding-top: 60px;
+        position: relative;
       }
       .hero-content {
-        max-width: 680px;
+        max-width: 560px;
+      }
+
+      /* HERO PHOTO */
+      .hero-photo-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .hero-photo-frame {
+        position: relative;
+        width: 320px;
+        height: 380px;
+      }
+      .hero-photo-frame::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+        opacity: 0.5;
+        filter: blur(2px);
+        z-index: 0;
+        animation: morph 8s ease-in-out infinite;
+      }
+      @keyframes morph {
+        0%,
+        100% {
+          border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+        }
+        33% {
+          border-radius: 55% 45% 40% 60% / 45% 55% 50% 50%;
+        }
+        66% {
+          border-radius: 45% 55% 60% 40% / 55% 45% 45% 55%;
+        }
+      }
+      .hero-photo {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+        animation: morph 8s ease-in-out infinite;
+        border: 3px solid var(--bg3);
+        display: block;
+      }
+      .hero-photo-placeholder {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+        animation: morph 8s ease-in-out infinite;
+        background: var(--bg3);
+        border: 2px dashed var(--border2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--tx3);
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+      }
+
+      /* CAT STICKERS */
+      .cat-stickers {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+      .cat-sticker {
+        position: absolute;
+        pointer-events: auto;
+        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+        transition: filter 0.2s ease;
+        cursor: default;
+      }
+      .cat-sticker:hover {
+        filter: drop-shadow(0 8px 20px rgba(0, 229, 255, 0.3))
+          drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+      }
+      .cat-sticker img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          padding-bottom: 3rem;
+        }
+        .hero-photo-frame {
+          width: 240px;
+          height: 280px;
+        }
+        .hero-photo-wrap {
+          order: -1;
+        }
       }
       .hero-tag {
         display: inline-flex;
@@ -755,6 +863,49 @@
     <main>
       <!-- HERO -->
       <section class="hero" id="home">
+        <!-- Cat stickers scattered in the hero background -->
+        <div class="cat-stickers" aria-hidden="true">
+          <!-- lounging cat — bottom left area -->
+          <div
+            class="cat-sticker"
+            style="
+              width: 200px;
+              height: 160px;
+              bottom: 8%;
+              left: 2%;
+              transform: rotate(-8deg);
+            "
+          >
+            <img src="images/cat3.png" alt="cat" />
+          </div>
+          <!-- sitting cat — bottom right area -->
+          <div
+            class="cat-sticker"
+            style="
+              width: 140px;
+              height: 170px;
+              bottom: 5%;
+              right: 5%;
+              transform: rotate(6deg);
+            "
+          >
+            <img src="images/cat2.png" alt="cat" />
+          </div>
+          <!-- staring cat — mid-right lower -->
+          <div
+            class="cat-sticker"
+            style="
+              width: 130px;
+              height: 140px;
+              bottom: 22%;
+              right: 12%;
+              transform: rotate(-4deg);
+            "
+          >
+            <img src="images/cat1.png" alt="cat" />
+          </div>
+        </div>
+
         <div class="hero-content">
           <div class="hero-tag">Available for work</div>
           <h1>
@@ -764,10 +915,9 @@
             >
           </h1>
           <p class="hero-sub">
-            I build <strong>web apps</strong>, <strong>games</strong>, and
-            <strong>everything in between</strong> — from full-stack web
-            projects to solo-shipped Unity games. I care about clean code,
-            thoughtful UX, and building things that actually work.
+            Computer Science graduate from York University with a passion for building things people actually enjoy using.
+            Whether it's a <strong>full-stack web app</strong> or a <strong>game I shipped solo</strong>.
+            I love the whole process: from rough ideas and wireframes to something real that people can actually use.
           </p>
           <div class="hero-ctas">
             <a href="#projects" class="btn-primary">
@@ -808,6 +958,15 @@
             scroll to explore
           </div>
         </div>
+
+        <!-- PHOTO COLUMN -->
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-frame">
+            <img class="hero-photo" src="images/me.jpg" alt="Adam" />
+              </svg>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ABOUT -->
@@ -818,23 +977,24 @@
         </div>
         <div class="about-grid">
           <div class="about-text fade-up">
-            <p>
-              I'm a <strong>software developer</strong> who works across the
-              full stack — building web apps, designing systems, and making
-              games. I like understanding every layer of what I'm building, from
-              database to UI.
-            </p>
-            <p>
-              I got into coding because I wanted to
-              <strong>build the games I wished existed</strong>, and somewhere
-              along the way fell in love with web development too. I've shipped
-              solo Unity projects, worked as a programmer on group game teams,
-              and built full-stack web apps from the ground up.
-            </p>
-            <p>
-              Always open to interesting problems and people to collaborate
-              with. If you have something worth building, let's talk.
-            </p>
+          <p>
+            I grew up <strong>obsessed with technology</strong> from a young age.
+            Computers, games, gadgets, how things worked under the hood. It felt
+            pretty natural that CS ended up being my path, and I graduated from
+            <strong>York University</strong> doing just that.
+          </p>
+          <p>
+              At York I found what I actually loved building. On the <strong>web dev</strong>
+              side I built a full-stack note taking app with real-time sync and
+              authentication, and an event discovery platform where users can search
+              nearby events on an interactive map, filter by date and distance, and grab
+              ticket links all in one place. On the <strong>game dev</strong> side, my
+              game design courses taught me a lot. I solo built a Unity game
+              from concept to final build, and as part of a team built a 2D survival
+              crafting game with a full diving and mining system, where I worked on the
+              core gameplay, UI, and helped with animation integration. There's something really satisfying about putting
+              something out into the world and watching people actually use it, and this is what keeps me motivated.
+          </p>
           </div>
           <div class="about-sidebar fade-up">
             <div>
@@ -990,9 +1150,9 @@
           },
           {
             title: "Spellstorm Academy",
-            desc: "A solo-developed Unity game — designed, programmed, and shipped entirely independently, from core mechanics to final build.",
+            desc: "A solo-developed Unity game: designed, programmed, and shipped entirely independently, from core mechanics to final build.",
             type: "Game",
-            tags: ["Unity", "C#", "Solo Dev", "Game Design"],
+            tags: ["Unity", "C#", "Solo Dev", "Game Design", "UI Design"],
             live: "https://adam5192.itch.io/spellstorm-academy",
             repo: "https://github.com/adam5192/SpellstormAcademy",
             video: "videos/spell.mp4",
