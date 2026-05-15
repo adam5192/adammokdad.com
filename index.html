@@ -200,13 +200,21 @@
       .hero {
         min-height: 100vh;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: 1fr auto;
         padding-top: 60px;
+        padding-bottom: 2rem;
         position: relative;
+        gap: 0;
       }
       .hero-content {
         max-width: 560px;
+        position: relative;
+        z-index: 1;
+        align-self: center;
+      }
+      .hero-photo-wrap {
+        align-self: center;
       }
 
       /* HERO PHOTO */
@@ -215,6 +223,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        z-index: 1;
       }
       .hero-photo-frame {
         position: relative;
@@ -275,66 +284,65 @@
         letter-spacing: 0.08em;
       }
 
-      /* CAT STICKERS */
+      /* CAT STICKERS — own grid row, fixed height, scattered inside */
       .cat-stickers {
-        position: absolute;
-        inset: 0;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        position: relative;
+        height: clamp(240px, 28vw, 380px);
         pointer-events: none;
-        z-index: 2;
+        overflow: hidden;
       }
-      .cat-sticker {
+      .cs {
         position: absolute;
         pointer-events: auto;
-        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
-        transition: filter 0.2s ease;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+        transition: filter 0.2s ease, transform 0.2s ease;
         cursor: default;
       }
-      .cat-sticker:hover {
-        filter: drop-shadow(0 8px 20px rgba(0, 229, 255, 0.3))
-          drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+      .cs:hover {
+        filter: drop-shadow(0 8px 20px rgba(0,229,255,0.3)) drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+        transform: scale(1.12) !important;
+        z-index: 2;
       }
-      .cat-sticker img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
+      /* each sticker: left% = horizontal pos, top% = vertical pos, size via width/height */
+.cs-1 { width:clamp(90px,9vw,150px);  height:clamp(80px,8vw,130px);  left:1%;   top:50%;  transform:rotate(-8deg);  }
+.cs-2 { width:clamp(80px,8vw,130px);  height:clamp(90px,9vw,140px);  left:9%;   top:8%;   transform:rotate(7deg);   }
+.cs-3 { width:clamp(75px,7vw,120px);  height:clamp(80px,8vw,125px);  left:20%;  top:62%;  transform:rotate(12deg);  }
+.cs-4 { width:clamp(95px,9vw,145px);  height:clamp(85px,9vw,140px);  left:31%;  top:3%;   transform:rotate(-3deg);  }
+.cs-5 { width:clamp(70px,7vw,115px);  height:clamp(80px,8vw,125px);  left:43%;  top:58%;  transform:rotate(-9deg);  }
+.cs-6 { width:clamp(90px,9vw,145px);  height:clamp(95px,9vw,150px);  left:55%;  top:5%;   transform:rotate(5deg);   }
+.cs-7 { width:clamp(85px,8vw,135px);  height:clamp(80px,8vw,130px);  left:69%;  top:52%;  transform:rotate(-7deg);  }
+.cs-8 { width:clamp(75px,7vw,120px);  height:clamp(85px,8vw,130px);  left:83%;  top:2%;   transform:rotate(11deg);  }
 
       @media (max-width: 768px) {
         .hero {
           grid-template-columns: 1fr;
           grid-template-rows: auto auto auto;
-          gap: 2rem;
-          padding-bottom: 3rem;
+          gap: 1.5rem;
+          padding-bottom: 2rem;
         }
         .hero-photo-frame {
-          width: 240px;
-          height: 280px;
+          width: clamp(180px, 50vw, 280px);
+          height: clamp(210px, 58vw, 320px);
         }
         .hero-photo-wrap {
           order: -1;
+          align-self: auto;
         }
         .cat-stickers {
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: flex-end;
-          gap: 1rem;
-          height: 140px;
-          margin-top: 0;
+          height: clamp(120px, 30vw, 180px);
+          overflow: hidden;
         }
-        .cat-sticker {
-          position: relative !important;
-          bottom: auto !important;
-          left: auto !important;
-          right: auto !important;
-          top: auto !important;
-          width: 110px !important;
-          height: 110px !important;
-        }
-        .cat-sticker:nth-child(1) { transform: rotate(-6deg) !important; }
-        .cat-sticker:nth-child(2) { transform: rotate(4deg) !important; }
-        .cat-sticker:nth-child(3) { transform: rotate(-3deg) !important; }
+        .cs-1 { width:clamp(55px,12vw,90px); height:clamp(50px,11vw,80px); left:1%;  top:40%; transform:rotate(-6deg); }
+        .cs-2 { width:clamp(50px,11vw,80px); height:clamp(55px,12vw,85px); left:13%; top:5%;  transform:rotate(5deg);  }
+        .cs-3 { width:clamp(48px,10vw,75px); height:clamp(50px,11vw,80px); left:26%; top:42%; transform:rotate(8deg);  }
+        .cs-4 { width:clamp(52px,11vw,82px); height:clamp(52px,11vw,82px); left:38%; top:8%;  transform:rotate(2deg);  }
+        .cs-5 { width:clamp(50px,11vw,80px); height:clamp(52px,11vw,84px); left:50%; top:38%; transform:rotate(-4deg); }
+        .cs-6 { width:clamp(55px,12vw,85px); height:clamp(55px,12vw,85px); left:62%; top:5%;  transform:rotate(-7deg); }
+        .cs-7 { width:clamp(50px,11vw,80px); height:clamp(52px,11vw,82px); left:74%; top:40%; transform:rotate(5deg);  }
+        .cs-8 { width:clamp(48px,10vw,75px); height:clamp(50px,11vw,78px); left:86%; top:8%;  transform:rotate(-3deg); }
       }
       .hero-tag {
         display: inline-flex;
@@ -886,49 +894,6 @@
     <main>
       <!-- HERO -->
       <section class="hero" id="home">
-        <!-- Cat stickers scattered in the hero background -->
-        <div class="cat-stickers" aria-hidden="true">
-          <!-- lounging cat — bottom left area -->
-          <div
-            class="cat-sticker"
-            style="
-              width: 200px;
-              height: 160px;
-              bottom: 8%;
-              left: 2%;
-              transform: rotate(-8deg);
-            "
-          >
-            <img src="images/cat3.png" alt="cat" />
-          </div>
-          <!-- sitting cat — bottom right area -->
-          <div
-            class="cat-sticker"
-            style="
-              width: 140px;
-              height: 170px;
-              bottom: 5%;
-              right: 5%;
-              transform: rotate(6deg);
-            "
-          >
-            <img src="images/cat2.png" alt="cat" />
-          </div>
-          <!-- staring cat — mid-right lower -->
-          <div
-            class="cat-sticker"
-            style="
-              width: 130px;
-              height: 140px;
-              bottom: 22%;
-              right: 12%;
-              transform: rotate(-4deg);
-            "
-          >
-            <img src="images/cat1.png" alt="cat" />
-          </div>
-        </div>
-
         <div class="hero-content">
           <div class="hero-tag">Available for work</div>
           <h1>
@@ -939,7 +904,7 @@
           </h1>
           <p class="hero-sub">
             Computer Science graduate from York University with a passion for building things people actually enjoy using.
-            Whether it's a <strong>full-stack web app</strong> or a <strong>game I shipped solo</strong>.
+            Whether it's a full-stack web app or a game I shipped solo.
             I love the whole process: from rough ideas and wireframes to something real that people can actually use.
           </p>
           <div class="hero-ctas">
@@ -990,6 +955,19 @@
             </div>
           </div>
         </div>
+
+        <!-- STICKER ROW — sits in its own grid row below content and photo -->
+        <div class="cat-stickers" aria-hidden="true">
+          <img src="images/cat3.png"        alt="lounging cat"                  class="cs cs-1">
+          <img src="images/link.png"        alt="Link from The Legend of Zelda" class="cs cs-2">
+          <img src="images/paper-mario.png" alt="Paper Mario"                   class="cs cs-3">
+          <img src="images/cloud.webp"      alt="Cloud Strife from FF7"         class="cs cs-4">
+          <img src="images/umbreon.png"     alt="Umbreon from Pokemon"          class="cs cs-5">
+          <img src="images/yoshi.png"       alt="Yoshi from Super Mario"        class="cs cs-6">
+          <img src="images/cat2.png"        alt="sitting cat"                   class="cs cs-7">
+          <img src="images/cat1.png"        alt="staring cat"                   class="cs cs-8">
+        </div>
+
       </section>
 
       <!-- ABOUT -->
@@ -1001,17 +979,17 @@
         <div class="about-grid">
           <div class="about-text fade-up">
           <p>
-            I grew up <strong>obsessed with technology</strong> from a young age.
+            I grew up obsessed with technology from a young age.
             Computers, games, gadgets, how things worked under the hood. It felt
             pretty natural that CS ended up being my path, and I graduated from
-            <strong>York University</strong> doing just that.
+            York University doing just that.
           </p>
           <p>
-              At York I found what I actually loved building. On the <strong>web dev</strong>
+              At York I found what I actually loved building. On the web dev
               side I built a full-stack note taking app with real-time sync and
               authentication, and an event discovery platform where users can search
               nearby events on an interactive map, filter by date and distance, and grab
-              ticket links all in one place. On the <strong>game dev</strong> side, my
+              ticket links all in one place. On the game dev side, my
               game design courses taught me a lot. I solo built a Unity game
               from concept to final build, and as part of a team built a 2D survival
               crafting game with a full diving and mining system, where I worked on the
