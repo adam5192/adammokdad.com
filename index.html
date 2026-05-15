@@ -9,7 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="images/cat1.png">
+    <link rel="icon" href="images/cat1.png" />
     <style>
       :root {
         --cyan: #00e5ff;
@@ -291,30 +291,81 @@
         position: relative;
         height: clamp(240px, 28vw, 380px);
         pointer-events: none;
-        overflow: hidden;
+        overflow: visible;
       }
       .cs {
         position: absolute;
         pointer-events: auto;
         object-fit: contain;
-        filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
-        transition: filter 0.2s ease, transform 0.2s ease;
-        cursor: default;
+        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+        transition:
+          filter 0.2s ease,
+          transform 0.2s ease;
+        cursor: grab;
       }
       .cs:hover {
-        filter: drop-shadow(0 8px 20px rgba(0,229,255,0.3)) drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+        filter: drop-shadow(0 8px 20px rgba(0, 229, 255, 0.3))
+          drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
         transform: scale(1.12) !important;
         z-index: 2;
       }
       /* each sticker: left% = horizontal pos, top% = vertical pos, size via width/height */
-.cs-1 { width:clamp(90px,9vw,150px);  height:clamp(80px,8vw,130px);  left:1%;   top:50%;  transform:rotate(-8deg);  }
-.cs-2 { width:clamp(80px,8vw,130px);  height:clamp(90px,9vw,140px);  left:9%;   top:8%;   transform:rotate(7deg);   }
-.cs-3 { width:clamp(75px,7vw,120px);  height:clamp(80px,8vw,125px);  left:20%;  top:62%;  transform:rotate(12deg);  }
-.cs-4 { width:clamp(95px,9vw,145px); height:clamp(85px,9vw,140px); left:77%; top:2%; transform:rotate(-3deg); }
-.cs-5 { width:clamp(70px,7vw,115px);  height:clamp(80px,8vw,125px);  left:43%;  top:58%;  transform:rotate(-9deg);  }
-.cs-6 { width:clamp(90px,9vw,145px);  height:clamp(95px,9vw,150px);  left:55%;  top:5%;   transform:rotate(5deg);   }
-.cs-7 { width:clamp(85px,8vw,135px);  height:clamp(80px,8vw,130px);  left:69%;  top:52%;  transform:rotate(-7deg);  }
-.cs-8 { width:clamp(95px,9vw,145px);  height:clamp(85px,9vw,140px);  left:31%;  top:3%;   transform:rotate(-3deg);  }
+      .cs-1 {
+        width: clamp(90px, 9vw, 150px);
+        height: clamp(80px, 8vw, 130px);
+        left: 1%;
+        top: 50%;
+        transform: rotate(-8deg);
+      }
+      .cs-2 {
+        width: clamp(80px, 8vw, 130px);
+        height: clamp(90px, 9vw, 140px);
+        left: 9%;
+        top: 8%;
+        transform: rotate(7deg);
+      }
+      .cs-3 {
+        width: clamp(75px, 7vw, 120px);
+        height: clamp(80px, 8vw, 125px);
+        left: 20%;
+        top: 62%;
+        transform: rotate(12deg);
+      }
+      .cs-4 {
+        width: clamp(95px, 9vw, 145px);
+        height: clamp(85px, 9vw, 140px);
+        left: 77%;
+        top: 2%;
+        transform: rotate(-3deg);
+      }
+      .cs-5 {
+        width: clamp(70px, 7vw, 115px);
+        height: clamp(80px, 8vw, 125px);
+        left: 43%;
+        top: 58%;
+        transform: rotate(-9deg);
+      }
+      .cs-6 {
+        width: clamp(90px, 9vw, 145px);
+        height: clamp(95px, 9vw, 150px);
+        left: 55%;
+        top: 5%;
+        transform: rotate(5deg);
+      }
+      .cs-7 {
+        width: clamp(85px, 8vw, 135px);
+        height: clamp(80px, 8vw, 130px);
+        left: 69%;
+        top: 52%;
+        transform: rotate(-7deg);
+      }
+      .cs-8 {
+        width: clamp(95px, 9vw, 145px);
+        height: clamp(85px, 9vw, 140px);
+        left: 31%;
+        top: 3%;
+        transform: rotate(-3deg);
+      }
 
       @media (max-width: 768px) {
         .hero {
@@ -333,16 +384,64 @@
         }
         .cat-stickers {
           height: clamp(120px, 30vw, 180px);
-          overflow: hidden;
+          overflow: visible;
         }
-        .cs-1 { width:clamp(55px,12vw,90px); height:clamp(50px,11vw,80px); left:1%;  top:40%; transform:rotate(-6deg); }
-        .cs-2 { width:clamp(50px,11vw,80px); height:clamp(55px,12vw,85px); left:13%; top:5%;  transform:rotate(5deg);  }
-        .cs-3 { width:clamp(48px,10vw,75px); height:clamp(50px,11vw,80px); left:26%; top:42%; transform:rotate(8deg);  }
-        .cs-4 { width:clamp(52px,11vw,82px); height:clamp(52px,11vw,82px); left:38%; top:8%;  transform:rotate(2deg);  }
-        .cs-5 { width:clamp(50px,11vw,80px); height:clamp(52px,11vw,84px); left:50%; top:38%; transform:rotate(-4deg); }
-        .cs-6 { width:clamp(55px,12vw,85px); height:clamp(55px,12vw,85px); left:62%; top:5%;  transform:rotate(-7deg); }
-        .cs-7 { width:clamp(50px,11vw,80px); height:clamp(52px,11vw,82px); left:74%; top:40%; transform:rotate(5deg);  }
-        .cs-8 { width:clamp(48px,10vw,75px); height:clamp(50px,11vw,78px); left:86%; top:8%;  transform:rotate(-3deg); }
+        .cs-1 {
+          width: clamp(55px, 12vw, 90px);
+          height: clamp(50px, 11vw, 80px);
+          left: 1%;
+          top: 40%;
+          transform: rotate(-6deg);
+        }
+        .cs-2 {
+          width: clamp(50px, 11vw, 80px);
+          height: clamp(55px, 12vw, 85px);
+          left: 13%;
+          top: 5%;
+          transform: rotate(5deg);
+        }
+        .cs-3 {
+          width: clamp(48px, 10vw, 75px);
+          height: clamp(50px, 11vw, 80px);
+          left: 26%;
+          top: 42%;
+          transform: rotate(8deg);
+        }
+        .cs-4 {
+          width: clamp(52px, 11vw, 82px);
+          height: clamp(52px, 11vw, 82px);
+          left: 38%;
+          top: 8%;
+          transform: rotate(2deg);
+        }
+        .cs-5 {
+          width: clamp(50px, 11vw, 80px);
+          height: clamp(52px, 11vw, 84px);
+          left: 50%;
+          top: 38%;
+          transform: rotate(-4deg);
+        }
+        .cs-6 {
+          width: clamp(55px, 12vw, 85px);
+          height: clamp(55px, 12vw, 85px);
+          left: 62%;
+          top: 5%;
+          transform: rotate(-7deg);
+        }
+        .cs-7 {
+          width: clamp(50px, 11vw, 80px);
+          height: clamp(52px, 11vw, 82px);
+          left: 74%;
+          top: 40%;
+          transform: rotate(5deg);
+        }
+        .cs-8 {
+          width: clamp(48px, 10vw, 75px);
+          height: clamp(50px, 11vw, 78px);
+          left: 86%;
+          top: 8%;
+          transform: rotate(-3deg);
+        }
       }
       .hero-tag {
         display: inline-flex;
@@ -903,9 +1002,11 @@
             >
           </h1>
           <p class="hero-sub">
-            Computer Science graduate from York University with a passion for building things people actually enjoy using.
-            Whether it's a full-stack web app or a game I shipped solo.
-            I love the whole process: from rough ideas and wireframes to something real that people can actually use.
+            Computer Science graduate from York University with a passion for
+            building things people actually enjoy using. Whether it's a
+            full-stack web app or a game I shipped solo. I love the whole
+            process: from rough ideas and wireframes to something real that
+            people can actually use.
           </p>
           <div class="hero-ctas">
             <a href="#projects" class="btn-primary">
@@ -951,23 +1052,36 @@
         <div class="hero-photo-wrap">
           <div class="hero-photo-frame">
             <img class="hero-photo" src="images/me.jpg" alt="Adam" />
-              </svg>
-            </div>
           </div>
         </div>
 
         <!-- STICKER ROW — sits in its own grid row below content and photo -->
         <div class="cat-stickers" aria-hidden="true">
-          <img src="images/cat3.png"        alt="lounging cat"                  class="cs cs-1">
-          <img src="images/link.png"        alt="Link from The Legend of Zelda" class="cs cs-2">
-          <img src="images/paper-mario.png" alt="Paper Mario"                   class="cs cs-3">
-          <img src="images/cloud.webp"      alt="Cloud Strife from FF7"         class="cs cs-4">
-          <img src="images/umbreon.png"     alt="Umbreon from Pokemon"          class="cs cs-5">
-          <img src="images/yoshi.png"       alt="Yoshi from Super Mario"        class="cs cs-6">
-          <img src="images/cat2.png"        alt="sitting cat"                   class="cs cs-7">
-          <img src="images/cat1.png"        alt="staring cat"                   class="cs cs-8">
+          <img src="images/cat3.png" alt="lounging cat" class="cs cs-1" />
+          <img
+            src="images/link.png"
+            alt="Link from The Legend of Zelda"
+            class="cs cs-2"
+          />
+          <img src="images/paper-mario.png" alt="Paper Mario" class="cs cs-3" />
+          <img
+            src="images/cloud.webp"
+            alt="Cloud Strife from FF7"
+            class="cs cs-4"
+          />
+          <img
+            src="images/umbreon.png"
+            alt="Umbreon from Pokemon"
+            class="cs cs-5"
+          />
+          <img
+            src="images/yoshi.png"
+            alt="Yoshi from Super Mario"
+            class="cs cs-6"
+          />
+          <img src="images/cat2.png" alt="sitting cat" class="cs cs-7" />
+          <img src="images/cat1.png" alt="staring cat" class="cs cs-8" />
         </div>
-
       </section>
 
       <!-- ABOUT -->
@@ -978,24 +1092,26 @@
         </div>
         <div class="about-grid">
           <div class="about-text fade-up">
-          <p>
-            I grew up obsessed with technology from a young age.
-            Computers, games, gadgets, how things worked under the hood. It felt
-            pretty natural that CS ended up being my path, and I graduated from
-            York University doing just that.
-          </p>
-          <p>
+            <p>
+              I grew up obsessed with technology from a young age. Computers,
+              games, gadgets, how things worked under the hood. It felt pretty
+              natural that CS ended up being my path, and I graduated from York
+              University doing just that.
+            </p>
+            <p>
               At York I found what I actually loved building. On the web dev
               side I built a full-stack note taking app with real-time sync and
-              authentication, and an event discovery platform where users can search
-              nearby events on an interactive map, filter by date and distance, and grab
-              ticket links all in one place. On the game dev side, my
-              game design courses taught me a lot. I solo built a Unity game
-              from concept to final build, and as part of a team built a 2D survival
-              crafting game with a full diving and mining system, where I worked on the
-              core gameplay, UI, and helped with animation integration. There's something really satisfying about putting
-              something out into the world and watching people actually use it, and this is what keeps me motivated.
-          </p>
+              authentication, and an event discovery platform where users can
+              search nearby events on an interactive map, filter by date and
+              distance, and grab ticket links all in one place. On the game dev
+              side, my game design courses taught me a lot. I solo built a Unity
+              game from concept to final build, and as part of a team built a 2D
+              survival crafting game with a full diving and mining system, where
+              I worked on the core gameplay, UI, and helped with animation
+              integration. There's something really satisfying about putting
+              something out into the world and watching people actually use it,
+              and this is what keeps me motivated.
+            </p>
           </div>
           <div class="about-sidebar fade-up">
             <div>
@@ -1311,6 +1427,80 @@
           .querySelectorAll(".fade-up:not(.visible)")
           .forEach((el) => obs.observe(el));
       }
+
+      function makeDraggable(el) {
+        let startX, startY, startLeft, startTop;
+        let isDragging = false;
+
+        el.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          isDragging = true;
+
+          const rect = el.getBoundingClientRect();
+          const parentRect = el.offsetParent.getBoundingClientRect();
+
+          startX = e.clientX;
+          startY = e.clientY;
+          startLeft = rect.left - parentRect.left;
+          startTop = rect.top - parentRect.top;
+
+          el.style.zIndex = 99;
+          el.style.transition = "none";
+          el.style.cursor = "grabbing";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          if (!isDragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          el.style.left = `${startLeft + dx}px`;
+          el.style.top = `${startTop + dy}px`;
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (!isDragging) return;
+          isDragging = false;
+          el.style.cursor = "grab";
+          el.style.zIndex = 2;
+        });
+
+        // touch support
+        el.addEventListener(
+          "touchstart",
+          (e) => {
+            const touch = e.touches[0];
+            const rect = el.getBoundingClientRect();
+            const parentRect = el.offsetParent.getBoundingClientRect();
+            startX = touch.clientX;
+            startY = touch.clientY;
+            startLeft = rect.left - parentRect.left;
+            startTop = rect.top - parentRect.top;
+            el.style.zIndex = 99;
+            el.style.transition = "none";
+          },
+          { passive: true },
+        );
+
+        document.addEventListener(
+          "touchmove",
+          (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            const dx = touch.clientX - startX;
+            const dy = touch.clientY - startY;
+            el.style.left = `${startLeft + dx}px`;
+            el.style.top = `${startTop + dy}px`;
+          },
+          { passive: true },
+        );
+
+        document.addEventListener("touchend", () => {
+          isDragging = false;
+          el.style.zIndex = 2;
+        });
+      }
+
+      document.querySelectorAll(".cs").forEach(makeDraggable);
 
       document.getElementById("yr").textContent = new Date().getFullYear();
       render();
